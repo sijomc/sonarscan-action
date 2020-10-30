@@ -26,6 +26,9 @@ inputs:
     description: "Set the sonar.projectBaseDir analysis property"
     required: false
     default: "."
+  exclusions:
+    description: "Exclude directories from scanning"
+    required: false    
   login:
     description: "Login or authentication token of a SonarQube user"
     required: true
