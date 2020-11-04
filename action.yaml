@@ -1,5 +1,5 @@
-name: "SonarQube Scan"
-description: "Scan your code with SonarQube Scanner to detect bugs, vulnerabilities and code smells in more than 25 programming languages."
+name: "Sonar Scan"
+description: "SonarQube Scanner with Heap Memory Options:Detect bugs, vulnerabilities and code smells in more than 25 programming languages"
 branding:
   icon: "check"
   color: "green"
