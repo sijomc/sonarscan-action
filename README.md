@@ -9,6 +9,9 @@ Must required secrets are SONARQUBE_HOST and SONARQUBE_TOKEN
 - `SCANNER_OPTIONS` - Please set this to "-Xmx3000m" to avoid heap memory issue. We can increase this upto 6000m. Please GitHub runner hardware resources [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources)
 - `password` - using with the `login` username. Left blank if you are using authentication token.
 
+projectVersion is an input parameter not a  secret.
+
+- `projectVersion` - **_(Required)_** The version we can give as input before building the workflow. example 1.1. Increase this value on each build like 1.2,1.3,1.4,...etc.
 
 Please see `entrypoint.sh` file for more options.
 
@@ -16,7 +19,12 @@ Please see `entrypoint.sh` file for more options.
 `vim .github/workflows/devl.workflow.yml`
 
 ```
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      projectVersion:
+        description: 'Version'
+        required: true
 name: Development
 jobs:
   sonarQubeTrigger:
@@ -33,6 +41,7 @@ jobs:
         exclusions: ${{ secrets.SONAR_EXCLUSIONS }}
         projectKey: "**Develop**"
         projectName: "**Develop**"
+        projectVersion: ${{ github.event.inputs.projectVersion }}
 ```
 
 
@@ -40,7 +49,12 @@ jobs:
 
 
 ```
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      projectVersion:
+        description: 'Version'
+        required: true
 name: Production
 jobs:
   sonarQubeTrigger:
@@ -55,4 +69,5 @@ jobs:
         login: ${{ secrets.SONARQUBE_TOKEN }}
         scannerOptions: ${{ secrets.SCANNER_OPTIONS }}
         exclusions: ${{ secrets.SONAR_EXCLUSIONS }}
+        projectVersion: ${{ github.event.inputs.projectVersion }}        
 ```        
